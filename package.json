@@ -1,0 +1,22 @@
+{
+  "name": "elo-bot",
+  "version": "1.0.0",
+  "description": "slackbot to calculate elo for different games",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhchun/elo-bot.git"
+  },
+  "author": "Roy Chun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rhchun/elo-bot/issues"
+  },
+  "homepage": "https://github.com/rhchun/elo-bot#readme",
+  "dependencies": {
+    "slackbots": "^1.2.0"
+  }
+}
