@@ -1,3 +1,18 @@
+const MongoClient = require('mongodb').MongoClient;
+const url = 'process.env.VCAP_SERVICE.ucp-mongo-ssl.creditionals.uri';
+
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db('elo-bot');
+    console.log('database test');
+    var player = { name: 'roy', game: { name: 'chess', rating: 1000, win: 0, loss: 0 } };
+    dbo.collection('foo').insertOne(player, function(err, res) {
+        if (err) throw err;
+        console.log('Player inserted');
+        db.close();
+    });
+});
+
 const { Player, chessStyle, unoStyle } = require('./algorithm');
 const slackBot = require('slackbots');
 

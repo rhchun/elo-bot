@@ -6,7 +6,8 @@ class Player {
 };  
 
 class Game {
-    constructor(rating, win, loss) {
+    constructor(name, rating, win, loss) {
+        this.name = name;
         this.rating = rating;
         this.win = win;
         this.loss = loss;
