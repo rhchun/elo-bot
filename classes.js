@@ -1,21 +1,33 @@
 class Player {
-    constructor(name) {
-        this.name = name;
-        this.gameList = new Array();
+    constructor(name, totalList) {
+        if (name in totalList) {
+            return;
+        }
+        else {
+            this.name = name;
+            this.gameList = [];
+            totalList.push({
+                key: this.name,
+                value: this
+            });
+        }
     }
     addGame(name) {
-        var game = new Game(name, 1000, 0, 0);
-        this.gameList.push(game);
+        if (name in this.gameList) {
+            return;
+        }
+        else {
+            var game = new Game(name, 1000, 0, 0);
+            this.gameList.push(game);
+        }
     }
     findGame(name) {
         for (var i = 0; i < this.gameList.length; i++) {
             if (this.gameList[i].name === name) {
                 return this.gameList[i];
             }
-            else {
-                return 0;
-            }
         }
+        return;
     }
 };
 
