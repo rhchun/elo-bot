@@ -8,9 +8,10 @@ var one_v_one = '1v1';
 var p1_win = '&gt;';
 var p2_win = '&lt;';
 
+
 const bot = new slackBot({
     token: 'xoxb-500448433477-500253762050-lSoDJj5p1RtcxUOIErhsGMoD',
-    name: 'elo-bot'  
+    name: 'elo-bot'
 });
 
 //start handler
@@ -30,7 +31,7 @@ bot.on('message', (data) => {
     if(data.type !== 'message') {
         return;
     }
-    handleMessage(data.text); 
+    handleMessage(data.text);
 });
 
 //responds to data
