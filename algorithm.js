@@ -1,12 +1,7 @@
 class Player {
     constructor(name, game) {
         this.name = name;
-        this.game = game;
-    }
-
-    getStats() {
-        console.log(this.name + ' stats')
-        this.game.printStats();
+        this.game = new Game(1200, 0, 0);
     }
 };  
 
@@ -24,11 +19,6 @@ class Game {
     }
     incrementLoss() {
         this.loss++;
-    }
-    printStats() {
-        console.log('Rating: ' + this.rating);
-        console.log('Win: ' + this.win);
-        console.log('Loss: ' + this.loss);
     }
 };
 
@@ -54,8 +44,6 @@ function chessStyle(p1, p2, k, result) {
         p2.game.incrementWin();
         p1.game.incrementLoss();
     }
-    p1.game.printStats();
-    p2.game.printStats();
 };
 
 module.exports = {
