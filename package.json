@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/rhchun/elo-bot#readme",
   "dependencies": {
+    "mongodb": "^3.1.10",
     "slackbots": "^1.2.0"
   }
 }

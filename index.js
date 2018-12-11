@@ -1,12 +1,19 @@
-const { Player, chessStyle, unoStyle } = require('./algorithm');
+const { Player } = require('./classes');
+const { chessStyle, unoStyle } = require('./algorithm');
 const slackBot = require('slackbots');
 
-var roy = new Player('roy', 1000);
-var lisa = new Player('lisa', 1000);
-var smriti = new Player('smriti', 1000);
-var felix = new Player('felix', 1000);
-var paul = new Player('paul', 1000);
+var roy = new Player('roy');
+var lisa = new Player('lisa');
+var smriti = new Player('smriti');
+var felix = new Player('felix');
+var paul = new Player('paul');
 var players = [felix, smriti, lisa, roy, paul];
+
+roy.addGame('uno');
+lisa.addGame('uno');
+smriti.addGame('uno');
+felix.addGame('uno');
+paul.addGame('uno');
 
 var one_v_one = '1v1';
 var p1_win = '&gt;';
@@ -44,37 +51,37 @@ function handleMessage(message) {
         icon_emoji: ':snake:'
     };
     if(message.match(one_v_one) && message.match(p1_win)) {
-        chessStyle(roy, lisa, 30, true);
+        chessStyle('chess', roy, lisa, 30, true);
         bot.postMessageToChannel(
             'elo-bot',
-            `${roy.name}'s rating: ${roy.game.rating}\n${roy.name}'s win: ${roy.game.win}\n${roy.name}'s loss: ${roy.game.loss}\n`,
+            `${roy.name}'s rating: ${roy.findGame('chess').rating}\n${roy.name}'s win: ${roy.findGame('chess').win}\n${roy.name}'s loss: ${roy.findGame('chess').loss}\n`,
             params
         );
         bot.postMessageToChannel(
             'elo-bot',
-            `${lisa.name}'s rating: ${lisa.game.rating}\n${lisa.name}'s win: ${lisa.game.win}\n${lisa.name}'s loss: ${lisa.game.loss}\n`,
+            `${lisa.name}'s rating: ${lisa.findGame('chess').rating}\n${lisa.name}'s win: ${lisa.findGame('chess').win}\n${lisa.name}'s loss: ${lisa.findGame('chess').loss}\n`,
             params
         );
     }
     else if(message.match(one_v_one) && message.match(p2_win)) {
-        chessStyle(roy, lisa, 30, false);
+        chessStyle('chess', roy, lisa, 30, false);
         bot.postMessageToChannel(
             'elo-bot',
-            `${roy.name}'s rating: ${roy.game.rating}\n${roy.name}'s win: ${roy.game.win}\n${roy.name}'s loss: ${roy.game.loss}\n`,
+            `${roy.name}'s rating: ${roy.findGame('chess').rating}\n${roy.name}'s win: ${roy.findGame('chess').win}\n${roy.name}'s loss: ${roy.findGame('chess').loss}\n`,
             params
         );
         bot.postMessageToChannel(
             'elo-bot',
-            `${lisa.name}'s rating: ${lisa.game.rating}\n${lisa.name}'s win: ${lisa.game.win}\n${lisa.name}'s loss: ${lisa.game.loss}\n`,
+            `${lisa.name}'s rating: ${lisa.findGame('chess').rating}\n${lisa.name}'s win: ${lisa.findGame('chess').win}\n${lisa.name}'s loss: ${lisa.findGame('chess').loss}\n`,
             params
         );
     }
     else if(message.match('test')) {
-        unoStyle(players, 50);
+        unoStyle('uno', players, 50);
         for (var i = 0; i < players.length; i++) {
             bot.postMessageToChannel(
                 'algorithm-test',
-                `${players[i].name}'s rating: ${players[i].game.rating}`,
+                `${players[i].name}'s rating: ${players[i].findGame('uno').rating}`,
                 params
             );
         }
