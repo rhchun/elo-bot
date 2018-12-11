@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://c318e443-9bda-4266-9c11-9f043ec03238:02197f86-eaa1-45db-827b-ee5ac33a6cb6@pcf-mongo-1.ulti.io:27017,pcf-mongo-2.ulti.io:27017,pcf-mongo-3.ulti.io:27017/5b0b8377-e0f6-4bc8-aa49-5b6d6c8521f3?ssl=true';
+const url = 'mongodb://c318e443-9bda-4266-9c11-9f043ec03238:02197f86-eaa1-45db-827b-ee5ac33a6cb6@pcf-mongo-1.ulti.io:27017/5b0b8377-e0f6-4bc8-aa49-5b6d6c8521f3?ssl=true';
 
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
