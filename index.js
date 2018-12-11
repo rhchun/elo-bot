@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const url = process.env.VCAP_SERVICE.ucp-mongo-ssl.creditionals.uri;
+const url = process.env.VCAP_SERVICES.ucp-mongo-ssl.credentials.uri;
 
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
