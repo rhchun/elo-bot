@@ -1,8 +1,12 @@
-const { Player, chessStyle } = require('./algorithm');
+const { Player, chessStyle, unoStyle } = require('./algorithm');
 const slackBot = require('slackbots');
 
-var roy = new Player('roy');
-var lisa = new Player('lisa');
+var roy = new Player('roy', 1000);
+var lisa = new Player('lisa', 1000);
+var smriti = new Player('smriti', 1000);
+var felix = new Player('felix', 1000);
+var paul = new Player('paul', 1000);
+var players = [felix, smriti, lisa, roy, paul];
 
 var one_v_one = '1v1';
 var p1_win = '&gt;';
@@ -63,5 +67,15 @@ function handleMessage(message) {
             `${lisa.name}'s rating: ${lisa.game.rating}\n${lisa.name}'s win: ${lisa.game.win}\n${lisa.name}'s loss: ${lisa.game.loss}\n`,
             params
         );
+    }
+    else if(message.match('test')) {
+        unoStyle(players, 50);
+        for (var i = 0; i < players.length; i++) {
+            bot.postMessageToChannel(
+                'algorithm-test',
+                `${players[i].name}'s rating: ${players[i].game.rating}`,
+                params
+            );
+        }
     }
 }
