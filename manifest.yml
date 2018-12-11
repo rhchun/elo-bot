@@ -1,0 +1,9 @@
+---
+applications:
+- name: elo-bot
+  buildpack: nodejs-v1-6-18
+  memory: 256M
+  path: .
+  instances: 1
+  health-check-type: process
+  timeout: 120
