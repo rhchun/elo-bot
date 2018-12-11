@@ -37,8 +37,8 @@ function probability(r1, r2) {
 };
 
 function chessStyle(p1, p2, k, result) {
-    const p1Rating = p1.game.getRating();
-    const p2Rating = p2.game.getRating();
+    const p1Rating = p1.game.rating;
+    const p2Rating = p2.game.rating;
     const pb = probability(p1Rating, p2Rating);
     const pa = probability(p2Rating, p1Rating);
 
