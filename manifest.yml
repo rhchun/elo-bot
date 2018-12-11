@@ -2,7 +2,7 @@
 applications:
 - name: elo-bot
   buildpack: nodejs-v1-6-18
-  memory: 256M
+  memory: 1024M
   path: .
   instances: 1
   health-check-type: process
