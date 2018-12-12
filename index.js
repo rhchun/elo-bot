@@ -56,27 +56,80 @@ function handleMessage(message) {
     const params = {
         icon_emoji: ':snake:'
     };
-    if(message.match(one_v_one)) {
-        chessStyle('chess', roy, lisa, 25);
+    
+    var tokens = message.split(" ");
+    console.log(tokens);
+    if(tokens[0].match('<@UEQ7FNE1G>')){
+        parseGameCommand(tokens);
+    }
+}
+
+function parseGameCommand(tokens) {
+    if (tokens.length != 4 ) {
         bot.postMessageToChannel(
-            'algorithm-test',
-            `${roy.name}'s rating: ${roy.findGame('chess').rating}\n${roy.name}'s win: ${roy.findGame('chess').win}\n${roy.name}'s loss: ${roy.findGame('chess').loss}\n`,
-            params
-        );
-        bot.postMessageToChannel(
-            'algorithm-test',
-            `${lisa.name}'s rating: ${lisa.findGame('chess').rating}\n${lisa.name}'s win: ${lisa.findGame('chess').win}\n${lisa.name}'s loss: ${lisa.findGame('chess').loss}\n`,
-            params
+            'felix2',
+            'Invalid input format. Please re-enter.'
         );
     }
-    else if(message.match(free_for_all)) {
-        unoStyle('uno', players, 50);
-        for (var i = 0; i < players.length; i++) {
+    else {
+        bot.getUserById(tokens[2].substring(2, tokens[2].length - 1)).then(res => { 
+            if(typeof res === 'undefined') {
+                bot.postMessageToChannel(
+                    'felix2',
+                    `Player not found ${tokens[2]}.`
+                )
+                return;
+            }
+        });
+        bot.getUserById(tokens[3].substring(2, tokens[3].length - 1)).then(res => { 
+            if(typeof res === 'undefined') {
+                bot.postMessageToChannel(
+                    'felix2',
+                    `Player not found ${tokens[3]}.`
+                )
+                return;
+            }
+        });
+        playGame();
+        
+    }
+
+    function playGame() {
+        if(message.match(one_v_one)) {
+            chessStyle('chess', roy, lisa, 30);
             bot.postMessageToChannel(
                 'algorithm-test',
                 `${players[i].name}'s rating: ${players[i].findGame('uno').rating}\n${players[i].name}'s win: ${players[i].findGame('uno').win}\n${players[i].name}'s loss: ${players[i].findGame('uno').loss}\n`,
                 params
             );
+            bot.postMessageToChannel(
+                'algorithm-test',
+                `${lisa.name}'s rating: ${lisa.findGame('chess').rating}\n${lisa.name}'s win: ${lisa.findGame('chess').win}\n${lisa.name}'s loss: ${lisa.findGame('chess').loss}\n`,
+                params
+            );
+        }
+        else if(message.match(one_v_one)) {
+            chessStyle('chess', roy, lisa, 30, false);
+            bot.postMessageToChannel(
+                'algorithm-test',
+                `${roy.name}'s rating: ${roy.findGame('chess').rating}\n${roy.name}'s win: ${roy.findGame('chess').win}\n${roy.name}'s loss: ${roy.findGame('chess').loss}\n`,
+                params
+            );
+            bot.postMessageToChannel(
+                'algorithm-test',
+                `${lisa.name}'s rating: ${lisa.findGame('chess').rating}\n${lisa.name}'s win: ${lisa.findGame('chess').win}\n${lisa.name}'s loss: ${lisa.findGame('chess').loss}\n`,
+                params
+            );
+        }
+        else if(message.match(free_for_all)) {
+            unoStyle('uno', players, 50);
+            for (var i = 0; i < players.length; i++) {
+                bot.postMessageToChannel(
+                    'algorithm-test',
+                    `${players[i].name}'s rating: ${players[i].findGame('uno').rating}`,
+                    params
+                );
+            }
         }
     }
 }
