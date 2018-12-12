@@ -56,6 +56,7 @@ function handleMessage(message) {
     const params = {
         icon_emoji: ':snake:'
     };
+<<<<<<< HEAD
     if(message.match(one_v_one)) {
         chessStyle('chess', roy, lisa, 30, true);
         bot.postMessageToChannel(
@@ -93,3 +94,73 @@ function handleMessage(message) {
         }
     }
 }
+=======
+    var tokens = message.split(" ");
+    console.log(tokens);
+    if(tokens[0].match('<@UEQ7FNE1G>')){
+        parse(tokens);
+    }
+    // if(message.match(one_v_one) && message.match(p1_win)) {
+    //     chessStyle(roy, lisa, 30, true);
+    //     bot.postMessageToChannel(
+    //         'elo-bot',
+    //         `${roy.name}'s rating: ${roy.game.rating}\n${roy.name}'s win: ${roy.game.win}\n${roy.name}'s loss: ${roy.game.loss}\n`,
+    //         params
+    //     );
+    //     bot.postMessageToChannel(
+    //         'elo-bot',
+    //         `${lisa.name}'s rating: ${lisa.game.rating}\n${lisa.name}'s win: ${lisa.game.win}\n${lisa.name}'s loss: ${lisa.game.loss}\n`,
+    //         params
+    //     );
+    // }
+    // else if(message.match(one_v_one) && message.match(p2_win)) {
+    //     chessStyle(roy, lisa, 30, false);
+    //     bot.postMessageToChannel(
+    //         'elo-bot',
+    //         `${roy.name}'s rating: ${roy.game.rating}\n${roy.name}'s win: ${roy.game.win}\n${roy.name}'s loss: ${roy.game.loss}\n`,
+    //         params
+    //     );
+    //     bot.postMessageToChannel(
+    //         'elo-bot',
+    //         `${lisa.name}'s rating: ${lisa.game.rating}\n${lisa.name}'s win: ${lisa.game.win}\n${lisa.name}'s loss: ${lisa.game.loss}\n`,
+    //         params
+    //     );
+    // }
+}
+
+function parse(tokens) {
+    if (tokens.length != 4 ) {
+        bot.postMessageToChannel(
+            'felix2',
+            'Invalid input format. Please re-enter.'
+        );
+    }
+    else {
+        bot.getUserById(tokens[2].substring(2, tokens[2].length - 1)).then(res => { 
+            if(typeof res === 'undefined') {
+                bot.postMessageToChannel(
+                    'felix2',
+                    `Player not found ${tokens[2]}.`
+                )
+                return;
+            }
+        });
+        bot.getUserById(tokens[3].substring(2, tokens[3].length - 1)).then(res => { 
+            if(typeof res === 'undefined') {
+                bot.postMessageToChannel(
+                    'felix2',
+                    `Player not found ${tokens[3]}.`
+                )
+                return;
+            }
+        });
+        if (tokens[1].match(one_v_one)) {
+            chessStyle(roy, lisa, 30, false);
+            bot.postMessageToChannel(
+            'felix2',
+            'Test'
+            )
+        }
+    }
+}
+>>>>>>> 90dd6f7... wtf
