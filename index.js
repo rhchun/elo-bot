@@ -64,28 +64,28 @@ function parseGameCommand(tokens) {
 
 function playGame(gameName, names) {
     if (names.length == 2) {
-        if (gameName == 'chess') {
-            chessStyle('chess', listOfPlayers[names[0]], listOfPlayers[names[1]], 30);
+        if (gameName == 'chess' || gameName == 'pingpong' || gameName == 'foosball' || gameName == 'fifa') {
+            chessStyle(gameName, listOfPlayers[names[0]], listOfPlayers[names[1]], 30);
             bot.postMessageToChannel(
                 'algorithm-test',
-                `${listOfPlayers[names[0]].name}'s rating: ${listOfPlayers[names[0]].findGame('chess').rating}\n${listOfPlayers[names[0]].name}'s win: ${listOfPlayers[names[0]].findGame('chess').win}\n${listOfPlayers[names[0]].name}'s loss: ${listOfPlayers[names[0]].findGame('chess').loss}\n`
+                `${listOfPlayers[names[0]].name}'s rating: ${listOfPlayers[names[0]].findGame(gameName).rating}\n${listOfPlayers[names[0]].name}'s win: ${listOfPlayers[names[0]].findGame(gameName).win}\n${listOfPlayers[names[0]].name}'s loss: ${listOfPlayers[names[0]].findGame(gameName).loss}\n`
             );
             bot.postMessageToChannel(
                 'algorithm-test',
-                `${listOfPlayers[names[1]].name}'s rating: ${listOfPlayers[names[1]].findGame('chess').rating}\n${listOfPlayers[names[1]].name}'s win: ${listOfPlayers[names[1]].findGame('chess').win}\n${listOfPlayers[names[1]].name}'s loss: ${listOfPlayers[names[1]].findGame('chess').loss}\n`
+                `${listOfPlayers[names[1]].name}'s rating: ${listOfPlayers[names[1]].findGame(gameName).rating}\n${listOfPlayers[names[1]].name}'s win: ${listOfPlayers[names[1]].findGame(gameName).win}\n${listOfPlayers[names[1]].name}'s loss: ${listOfPlayers[names[1]].findGame(gameName).loss}\n`
             );
         }
     }
     else if(names.length > 2) {
-        if (gameName == 'uno') {
+        if (gameName == 'uno' || gameName == 'coup') {
             for (var i = 0; i < names.length; i++) {
                 names[i] = listOfPlayers[names[i]];
             }
-            unoStyle('uno', names, 50);
+            unoStyle(gameName, names, 70);
             for (var i = 0; i < names.length; i++) {
                 bot.postMessageToChannel(
                     'algorithm-test',
-                    `${names[i].name}'s rating: ${names[i].findGame('uno').rating}\n${names[i].name}'s win: ${names[i].findGame('uno').win}\n${names[i].name}'s loss: ${names[i].findGame('uno').loss}\n`
+                    `${names[i].name}'s rating: ${names[i].findGame(gameName).rating}\n${names[i].name}'s win: ${names[i].findGame(gameName).win}\n${names[i].name}'s loss: ${names[i].findGame(gameName).loss}\n`
                 );
             }
         }
