@@ -14,24 +14,16 @@ function multiplayerProbability(game, p, players) {
     return Math.round(pa/intermediateResult*100)/100;
 }
 
-function chessStyle(game, p1, p2, k, result) {
+function chessStyle(game, p1, p2, k) {
     const p1Rating = p1.findGame(game).rating;
     const p2Rating = p2.findGame(game).rating;
     const pb = probability(p1Rating, p2Rating);
     const pa = probability(p2Rating, p1Rating);
 
-    if (result == true) {
-        p1.findGame(game).setRating(Math.round(p1Rating + k * (1 - pa)));
-        p2.findGame(game).setRating(Math.round(p2Rating + k * (0 - pb)));
-        p1.findGame(game).incrementWin();
-        p2.findGame(game).incrementLoss();
-    }
-    else {
-        p1.findGame(game).setRating(Math.round(p1Rating + k * (0 - pa)));
-        p2.findGame(game).setRating(Math.round(p2Rating + k * (1 - pb)));
-        p2.findGame(game).incrementWin();
-        p1.findGame(game).incrementLoss();
-    }
+    p1.findGame(game).setRating(Math.round(p1Rating + k * (1 - pa)));
+    p2.findGame(game).setRating(Math.round(p2Rating + k * (0 - pb)));
+    p1.findGame(game).incrementWin();
+    p2.findGame(game).incrementLoss();
 };
 
 function unoStyle(game, players, k) {
@@ -43,18 +35,33 @@ function unoStyle(game, players, k) {
     if (n%2 == 0) {
         for (var i = 0; i < n/2; i++) {
             players[i].findGame(game).setRating(Math.round(players[i].findGame(game).rating + k * (deservedRating[i] - multiplayerProbability(game, players[i], players))));
+            if (i == 0) {
+                players[i].findGame(game).incrementWin();
+            }
+            else {
+                players[i].findGame(game).incrementLoss();
+            }
         }
         for (var i = n/2; i < n; i++) {
             players[i].findGame(game).setRating(Math.round(players[i].findGame(game).rating + k * (deservedRating[i] - multiplayerProbability(game, players[i], players))));
+            players[i].findGame(game).incrementLoss();
         }
     }
     else {
         for (var i = 0; i < Math.floor(n/2); i++) {
             players[i].findGame(game).setRating(Math.round(players[i].findGame(game).rating + k * (deservedRating[i] - multiplayerProbability(game, players[i], players))));
+            if (i == 0) {
+                players[i].findGame(game).incrementWin();
+            }
+            else {
+                players[i].findGame(game).incrementLoss();
+            }
         }
         for (var i = Math.ceil(n/2); i < n; i++) {
             players[i].findGame(game).setRating(Math.round(players[i].findGame(game).rating + k * (deservedRating[i] - multiplayerProbability(game, players[i], players))));
+            players[i].findGame(game).incrementLoss();
         }
+        players[Math.floor(n/2)].findGame(game).incrementLoss();
     }
 }
 
