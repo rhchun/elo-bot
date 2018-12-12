@@ -46,6 +46,12 @@ class Game {
         this.loss++;
     }
 };
+function helpCommand() {
+    bot.postMessageToChannel(
+        'hungee',
+        '*List of Commands*\n     *Adding a new player:* @elo-bot add player <username>\n     *Adding a new game to player:* @elo-bot add game <game name> <username>\n     *Removing a player:* @elo-bot remove <username>\n     *Inserting game results:* @elo-bot <game name> <username1> <username2> ... (in descending order of winner)'
+    );
+}
 
 function addPlayer (dict, key) {
     if (key in dict) {
@@ -115,5 +121,6 @@ module.exports = {
     addPlayer,
     getPlayer,
     removePlayer,
-    addGameToPlayer
+    addGameToPlayer,
+    helpCommand
 }

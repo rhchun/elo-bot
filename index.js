@@ -1,4 +1,4 @@
-const { Player, addPlayer, getPlayer, removePlayer, addGameToPlayer } = require('./classes');
+const { Player, addPlayer, getPlayer, removePlayer, addGameToPlayer, helpCommand } = require('./classes');
 const { chessStyle, unoStyle } = require('./algorithm');
 const slackBot = require('slackbots');
 
@@ -49,6 +49,8 @@ function handleMessage(message) {
         } else if (tokens[1].match('remove')) {
             console.log("removing player");
             removePlayer(listOfPlayers, tokens[2]);
+        } else if (tokens[1].match('help')) {
+            helpCommand();
         } else {
             parseGameCommand(tokens.slice(1));
         }
