@@ -76,14 +76,17 @@ function handleMessage(message) {
             params
         );
     }
-    else if(message.match('test')) {
-        unoStyle('uno', players, 50);
-        for (var i = 0; i < players.length; i++) {
-            bot.postMessageToChannel(
-                'algorithm-test',
-                `${players[i].name}'s rating: ${players[i].findGame('uno').rating}`,
-                params
-            );
+
+    //winners will be an array of the names of people
+    if(message.match("<@UEQ7FNE1G>")) {
+        var names = message.split(" ");
+        console.log(names);
+        if(names.length > 3){
+            var winners = [];
+            for(var i = 2; i < names.length; i++){
+                winners.push(names[i]);
+                bot.postMessageToChannel('smriti', names[i], params);
+            }
         }
     }
 }
