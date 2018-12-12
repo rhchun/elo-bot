@@ -94,43 +94,43 @@ function parseGameCommand(tokens) {
         playGame();
         
     }
+}
 
-    function playGame() {
-        if(message.match(one_v_one)) {
-            chessStyle('chess', roy, lisa, 30, true);
+function playGame() {
+    if(message.match(one_v_one)) {
+        chessStyle('chess', roy, lisa, 30, true);
+        bot.postMessageToChannel(
+            'algorithm-test',
+            `${roy.name}'s rating: ${roy.findGame('chess').rating}\n${roy.name}'s win: ${roy.findGame('chess').win}\n${roy.name}'s loss: ${roy.findGame('chess').loss}\n`,
+            params
+        );
+        bot.postMessageToChannel(
+            'algorithm-test',
+            `${lisa.name}'s rating: ${lisa.findGame('chess').rating}\n${lisa.name}'s win: ${lisa.findGame('chess').win}\n${lisa.name}'s loss: ${lisa.findGame('chess').loss}\n`,
+            params
+        );
+    }
+    else if(message.match(one_v_one)) {
+        chessStyle('chess', roy, lisa, 30, false);
+        bot.postMessageToChannel(
+            'algorithm-test',
+            `${roy.name}'s rating: ${roy.findGame('chess').rating}\n${roy.name}'s win: ${roy.findGame('chess').win}\n${roy.name}'s loss: ${roy.findGame('chess').loss}\n`,
+            params
+        );
+        bot.postMessageToChannel(
+            'algorithm-test',
+            `${lisa.name}'s rating: ${lisa.findGame('chess').rating}\n${lisa.name}'s win: ${lisa.findGame('chess').win}\n${lisa.name}'s loss: ${lisa.findGame('chess').loss}\n`,
+            params
+        );
+    }
+    else if(message.match(free_for_all)) {
+        unoStyle('uno', players, 50);
+        for (var i = 0; i < players.length; i++) {
             bot.postMessageToChannel(
                 'algorithm-test',
-                `${roy.name}'s rating: ${roy.findGame('chess').rating}\n${roy.name}'s win: ${roy.findGame('chess').win}\n${roy.name}'s loss: ${roy.findGame('chess').loss}\n`,
+                `${players[i].name}'s rating: ${players[i].findGame('uno').rating}`,
                 params
             );
-            bot.postMessageToChannel(
-                'algorithm-test',
-                `${lisa.name}'s rating: ${lisa.findGame('chess').rating}\n${lisa.name}'s win: ${lisa.findGame('chess').win}\n${lisa.name}'s loss: ${lisa.findGame('chess').loss}\n`,
-                params
-            );
-        }
-        else if(message.match(one_v_one)) {
-            chessStyle('chess', roy, lisa, 30, false);
-            bot.postMessageToChannel(
-                'algorithm-test',
-                `${roy.name}'s rating: ${roy.findGame('chess').rating}\n${roy.name}'s win: ${roy.findGame('chess').win}\n${roy.name}'s loss: ${roy.findGame('chess').loss}\n`,
-                params
-            );
-            bot.postMessageToChannel(
-                'algorithm-test',
-                `${lisa.name}'s rating: ${lisa.findGame('chess').rating}\n${lisa.name}'s win: ${lisa.findGame('chess').win}\n${lisa.name}'s loss: ${lisa.findGame('chess').loss}\n`,
-                params
-            );
-        }
-        else if(message.match(free_for_all)) {
-            unoStyle('uno', players, 50);
-            for (var i = 0; i < players.length; i++) {
-                bot.postMessageToChannel(
-                    'algorithm-test',
-                    `${players[i].name}'s rating: ${players[i].findGame('uno').rating}`,
-                    params
-                );
-            }
         }
     }
 }
