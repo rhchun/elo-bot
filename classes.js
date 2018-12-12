@@ -1,3 +1,10 @@
+const slackBot = require('slackbots');
+
+const bot = new slackBot({
+    token: 'xoxb-500448433477-500253762050-lSoDJj5p1RtcxUOIErhsGMoD',
+    name: 'elo-bot'
+});
+
 class Player {
     constructor(name) {
         this.name = name;
@@ -40,12 +47,65 @@ class Game {
     }
 };
 
-function addPlayer (dict, key, value) {
-    dict[key] = value;
+function addPlayer (dict, key) {
+    if (key in dict) {
+        bot.postMessageToChannel(
+            'hungee',
+            `ERROR! Player ${key} already exists.`
+        );
+        return;
+    }
+    var temp = new Player(key);
+    dict[key] = temp;
+    bot.postMessageToChannel(
+        'hungee',
+        `Player ${key} was added!`
+    );
+    return;
 }
 
 function getPlayer (dict, key) {
     return dict[key];
+}
+
+function removePlayer (dict, name) {
+    if (name in dict) {
+        delete dict[name];
+        bot.postMessageToChannel(
+            'hungee',
+            `Player ${name} was removed!`
+        );
+        return;
+    }
+    bot.postMessageToChannel(
+        'hungee',
+        `ERROR! Player ${name} does not exist.`
+    );
+}
+
+function addGameToPlayer(dict, gameName, PlayerName) { // @elo-bot add game chess <username>
+    if (PlayerName in dict) {
+        for (var i = 0; i < getPlayer(dict, PlayerName).gameList.length; i++) {
+            if (getPlayer(dict, PlayerName).gameList[i].name == gameName) {
+                bot.postMessageToChannel(
+                    'hungee',
+                    `ERROR! Player ${PlayerName} already has ${gameName}.`
+                );
+                return; 
+            }
+        }
+        getPlayer(dict, PlayerName).addGame(gameName);
+        bot.postMessageToChannel(
+            'hungee',
+            `${gameName} was added to Player ${PlayerName}!`
+        );
+        return;
+    }
+    bot.postMessageToChannel(
+        'hungee',
+        `ERROR! Player ${PlayerName} does not exist, cannot add ${gameName}.`
+    )
+    return;
 }
 
 
@@ -53,5 +113,7 @@ module.exports = {
     Player,
     Game,
     addPlayer,
-    getPlayer
+    getPlayer,
+    removePlayer,
+    addGameToPlayer
 }
