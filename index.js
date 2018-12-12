@@ -15,7 +15,7 @@ bot.on('start', () => {
         icon_emoji: ':snake:'
     };
 
-    bot.postMessageToChannel('general', 'is your elo high enough?', params);
+    bot.postMessageToChannel('demo', 'is your elo high enough?', params);
 });
 
 //error handler
@@ -72,12 +72,12 @@ function playGame(gameName, names) {
         if (gameName == 'chess' || gameName == 'pingpong' || gameName == 'foosball' || gameName == 'fifa') {
             chessStyle(gameName, listOfPlayers[names[0]], listOfPlayers[names[1]], 30);
             bot.postMessageToChannel(
-                'algorithm-test',
-                `${listOfPlayers[names[0]].name}'s rating: ${listOfPlayers[names[0]].findGame(gameName).rating}\n${listOfPlayers[names[0]].name}'s win: ${listOfPlayers[names[0]].findGame(gameName).win}\n${listOfPlayers[names[0]].name}'s loss: ${listOfPlayers[names[0]].findGame(gameName).loss}\n`
+                'demo',
+                `*${listOfPlayers[names[0]].name}'s stats for ${gameName}:*\n     *Rating:* ${listOfPlayers[names[0]].findGame(gameName).rating}\n     *Wins:* ${listOfPlayers[names[0]].findGame(gameName).win}\n     *Losses:* ${listOfPlayers[names[0]].findGame(gameName).loss}\n`
             );
             bot.postMessageToChannel(
-                'algorithm-test',
-                `${listOfPlayers[names[1]].name}'s rating: ${listOfPlayers[names[1]].findGame(gameName).rating}\n${listOfPlayers[names[1]].name}'s win: ${listOfPlayers[names[1]].findGame(gameName).win}\n${listOfPlayers[names[1]].name}'s loss: ${listOfPlayers[names[1]].findGame(gameName).loss}\n`
+                'demo',
+                `*${listOfPlayers[names[1]].name}'s stats for ${gameName}:*\n     *Rating:* ${listOfPlayers[names[1]].findGame(gameName).rating}\n     *Wins:* ${listOfPlayers[names[1]].findGame(gameName).win}\n     *Losses:* ${listOfPlayers[names[1]].findGame(gameName).loss}\n`
             );
         }
     }
@@ -89,8 +89,8 @@ function playGame(gameName, names) {
             unoStyle(gameName, names, 70);
             for (var i = 0; i < names.length; i++) {
                 bot.postMessageToChannel(
-                    'algorithm-test',
-                    `${names[i].name}'s rating: ${names[i].findGame(gameName).rating}\n${names[i].name}'s win: ${names[i].findGame(gameName).win}\n${names[i].name}'s loss: ${names[i].findGame(gameName).loss}\n`
+                    'demo',
+                    `*${names[i].name}'s stats for ${gameName}:*\n     *Rating:* ${names[i].findGame(gameName).rating}\n     *Wins:* ${names[i].findGame(gameName).win}\n    *Losses:* ${names[i].findGame(gameName).loss}\n`
                 );
             }
         }
