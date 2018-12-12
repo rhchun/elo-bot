@@ -56,79 +56,16 @@ function handleMessage(message) {
     const params = {
         icon_emoji: ':snake:'
     };
-<<<<<<< HEAD
-    if(message.match(one_v_one)) {
-        chessStyle('chess', roy, lisa, 30, true);
-        bot.postMessageToChannel(
-            'algorithm-test',
-            `${roy.name}'s rating: ${roy.findGame('chess').rating}\n${roy.name}'s win: ${roy.findGame('chess').win}\n${roy.name}'s loss: ${roy.findGame('chess').loss}\n`,
-            params
-        );
-        bot.postMessageToChannel(
-            'algorithm-test',
-            `${lisa.name}'s rating: ${lisa.findGame('chess').rating}\n${lisa.name}'s win: ${lisa.findGame('chess').win}\n${lisa.name}'s loss: ${lisa.findGame('chess').loss}\n`,
-            params
-        );
-    }
-    else if(message.match(one_v_one)) {
-        chessStyle('chess', roy, lisa, 30, false);
-        bot.postMessageToChannel(
-            'algorithm-test',
-            `${roy.name}'s rating: ${roy.findGame('chess').rating}\n${roy.name}'s win: ${roy.findGame('chess').win}\n${roy.name}'s loss: ${roy.findGame('chess').loss}\n`,
-            params
-        );
-        bot.postMessageToChannel(
-            'algorithm-test',
-            `${lisa.name}'s rating: ${lisa.findGame('chess').rating}\n${lisa.name}'s win: ${lisa.findGame('chess').win}\n${lisa.name}'s loss: ${lisa.findGame('chess').loss}\n`,
-            params
-        );
-    }
-    else if(message.match(free_for_all)) {
-        unoStyle('uno', players, 50);
-        for (var i = 0; i < players.length; i++) {
-            bot.postMessageToChannel(
-                'algorithm-test',
-                `${players[i].name}'s rating: ${players[i].findGame('uno').rating}`,
-                params
-            );
-        }
-    }
-}
-=======
+    
+
     var tokens = message.split(" ");
     console.log(tokens);
     if(tokens[0].match('<@UEQ7FNE1G>')){
-        parse(tokens);
+        parseGameCommand(tokens);
     }
-    // if(message.match(one_v_one) && message.match(p1_win)) {
-    //     chessStyle(roy, lisa, 30, true);
-    //     bot.postMessageToChannel(
-    //         'elo-bot',
-    //         `${roy.name}'s rating: ${roy.game.rating}\n${roy.name}'s win: ${roy.game.win}\n${roy.name}'s loss: ${roy.game.loss}\n`,
-    //         params
-    //     );
-    //     bot.postMessageToChannel(
-    //         'elo-bot',
-    //         `${lisa.name}'s rating: ${lisa.game.rating}\n${lisa.name}'s win: ${lisa.game.win}\n${lisa.name}'s loss: ${lisa.game.loss}\n`,
-    //         params
-    //     );
-    // }
-    // else if(message.match(one_v_one) && message.match(p2_win)) {
-    //     chessStyle(roy, lisa, 30, false);
-    //     bot.postMessageToChannel(
-    //         'elo-bot',
-    //         `${roy.name}'s rating: ${roy.game.rating}\n${roy.name}'s win: ${roy.game.win}\n${roy.name}'s loss: ${roy.game.loss}\n`,
-    //         params
-    //     );
-    //     bot.postMessageToChannel(
-    //         'elo-bot',
-    //         `${lisa.name}'s rating: ${lisa.game.rating}\n${lisa.name}'s win: ${lisa.game.win}\n${lisa.name}'s loss: ${lisa.game.loss}\n`,
-    //         params
-    //     );
-    // }
 }
 
-function parse(tokens) {
+function parseGameCommand(tokens) {
     if (tokens.length != 4 ) {
         bot.postMessageToChannel(
             'felix2',
@@ -154,13 +91,46 @@ function parse(tokens) {
                 return;
             }
         });
-        if (tokens[1].match(one_v_one)) {
-            chessStyle(roy, lisa, 30, false);
+        playGame();
+        
+    }
+
+    function playGame() {
+        if(message.match(one_v_one)) {
+            chessStyle('chess', roy, lisa, 30, true);
             bot.postMessageToChannel(
-            'felix2',
-            'Test'
-            )
+                'algorithm-test',
+                `${roy.name}'s rating: ${roy.findGame('chess').rating}\n${roy.name}'s win: ${roy.findGame('chess').win}\n${roy.name}'s loss: ${roy.findGame('chess').loss}\n`,
+                params
+            );
+            bot.postMessageToChannel(
+                'algorithm-test',
+                `${lisa.name}'s rating: ${lisa.findGame('chess').rating}\n${lisa.name}'s win: ${lisa.findGame('chess').win}\n${lisa.name}'s loss: ${lisa.findGame('chess').loss}\n`,
+                params
+            );
+        }
+        else if(message.match(one_v_one)) {
+            chessStyle('chess', roy, lisa, 30, false);
+            bot.postMessageToChannel(
+                'algorithm-test',
+                `${roy.name}'s rating: ${roy.findGame('chess').rating}\n${roy.name}'s win: ${roy.findGame('chess').win}\n${roy.name}'s loss: ${roy.findGame('chess').loss}\n`,
+                params
+            );
+            bot.postMessageToChannel(
+                'algorithm-test',
+                `${lisa.name}'s rating: ${lisa.findGame('chess').rating}\n${lisa.name}'s win: ${lisa.findGame('chess').win}\n${lisa.name}'s loss: ${lisa.findGame('chess').loss}\n`,
+                params
+            );
+        }
+        else if(message.match(free_for_all)) {
+            unoStyle('uno', players, 50);
+            for (var i = 0; i < players.length; i++) {
+                bot.postMessageToChannel(
+                    'algorithm-test',
+                    `${players[i].name}'s rating: ${players[i].findGame('uno').rating}`,
+                    params
+                );
+            }
         }
     }
 }
->>>>>>> 90dd6f7... wtf
