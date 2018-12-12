@@ -1,27 +1,8 @@
-const { Player, addPlayer, getPlayer } = require('./classes');
+const { Player, addPlayer, getPlayer, removePlayer, addGameToPlayer } = require('./classes');
 const { chessStyle, unoStyle } = require('./algorithm');
 const slackBot = require('slackbots');
 
 var listOfPlayers = {};
-
-var roy = new Player('<@UEQ2CAD9A>');
-var lisa = new Player('<@UEQ3802SY>');
-var smriti = new Player('<@UEQDVD0S1>');
-var felix = new Player('<@UEQ559CL8>');
-
-addPlayer(listOfPlayers, '<@UEQ2CAD9A>', roy);
-addPlayer(listOfPlayers, '<@UEQ3802SY>', lisa);
-addPlayer(listOfPlayers, '<@UEQDVD0S1>', smriti);
-addPlayer(listOfPlayers, '<@UEQ559CL8>', felix);
-
-roy.addGame('uno');
-lisa.addGame('uno');
-smriti.addGame('uno');
-felix.addGame('uno');
-roy.addGame('chess');
-lisa.addGame('chess');
-smriti.addGame('chess');
-felix.addGame('chess');
 
 const bot = new slackBot({
     token: 'xoxb-500448433477-500253762050-lSoDJj5p1RtcxUOIErhsGMoD',
@@ -56,7 +37,21 @@ function handleMessage(message) {
     
     var tokens = message.split(" ");
     if(tokens[0].match('<@UEQ7FNE1G>')){
-        parseGameCommand(tokens.slice(1));
+        if (tokens[1].match('add')) {
+            if (tokens[2].match('player')) {
+                console.log("adding player");
+                addPlayer(listOfPlayers, tokens[3]); 
+            }
+            if (tokens[2].match('game')) {
+                console.log("adding game");
+                addGameToPlayer(listOfPlayers, tokens[3], tokens[4]);
+            }
+        } else if (tokens[1].match('remove')) {
+            console.log("removing player");
+            removePlayer(listOfPlayers, tokens[2]);
+        } else {
+            parseGameCommand(tokens.slice(1));
+        }
     }
 }
 
