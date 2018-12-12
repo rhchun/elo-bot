@@ -35,18 +35,33 @@ function unoStyle(game, players, k) {
     if (n%2 == 0) {
         for (var i = 0; i < n/2; i++) {
             players[i].findGame(game).setRating(Math.round(players[i].findGame(game).rating + k * (deservedRating[i] - multiplayerProbability(game, players[i], players))));
+            if (i == 0) {
+                players[i].findGame(game).incrementWin();
+            }
+            else {
+                players[i].findGame(game).incrementLoss();
+            }
         }
         for (var i = n/2; i < n; i++) {
             players[i].findGame(game).setRating(Math.round(players[i].findGame(game).rating + k * (deservedRating[i] - multiplayerProbability(game, players[i], players))));
+            players[i].findGame(game).incrementLoss();
         }
     }
     else {
         for (var i = 0; i < Math.floor(n/2); i++) {
             players[i].findGame(game).setRating(Math.round(players[i].findGame(game).rating + k * (deservedRating[i] - multiplayerProbability(game, players[i], players))));
+            if (i == 0) {
+                players[i].findGame(game).incrementWin();
+            }
+            else {
+                players[i].findGame(game).incrementLoss();
+            }
         }
         for (var i = Math.ceil(n/2); i < n; i++) {
             players[i].findGame(game).setRating(Math.round(players[i].findGame(game).rating + k * (deservedRating[i] - multiplayerProbability(game, players[i], players))));
+            players[i].findGame(game).incrementLoss();
         }
+        players[Math.floor(n/2)].findGame(game).incrementLoss();
     }
 }
 
