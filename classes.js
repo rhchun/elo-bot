@@ -131,8 +131,7 @@ function addGameToPlayer(dict, gameName, PlayerName) { // @elo-bot add game ches
 function getStats(dict, gameName, playerName) {
     if (playerName in dict) {
         for (var i = 0; i < getPlayer(dict, playerName).gameList.length; i++) {
-            console.log(getPlayer(dict, playerName).gameList[i]);
-            if (getPlayer(dict, playerName).gameList[i] == gameName) {
+            if (getPlayer(dict, playerName).gameList[i].name == gameName) {
                 bot.postMessageToChannel(
                     'hungee',
                     `*Player ${playerName}'s stats for ${gameName}:*\n     *Rating*: ${getPlayer(dict, playerName).gameList[i].rating}\n     *Wins*: ${getPlayer(dict, playerName).gameList[i].win}\n     *Losses*: ${getPlayer(dict, playerName).gameList[i].loss}`
