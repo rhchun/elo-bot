@@ -46,23 +46,17 @@ class Game {
         this.loss++;
     }
 };
-function helpCommand() {
-    bot.postMessageToChannel(
-        'hungee',
-        '*List of Commands*\n     *Adding a new player:* @elo-bot add player <username>\n     *Adding a new game to player:* @elo-bot add game <game name> <username>\n     *Removing a player:* @elo-bot remove <username>\n     *Inserting game results:* @elo-bot <game name> <username1> <username2> ... (in descending order of winner)'
-    );
-}
 
 function helpCommand() {
     bot.postMessageToChannel(
-        'hungee',
-        '*List of Commands*\n     *Adding a new player:* @elo-bot add player <username>\n     *Adding a new game to player:* @elo-bot add game <game> <username>\n     *Removing a player:* @elo-bot remove <username>\n     *Inserting game results:* @elo-bot <game> <username1> <username2> ... (in descending order of winner)\n     *Check stats:* @elo-bot stats <game> <username>\n     *List of supported games:* @elo-bot games?'
+        'demo',
+        '*List of Commands*\n     *Adding a new player:* `@elo-bot add player <username>`\n     *Adding a new game to player:* `@elo-bot add game <game> <username>`\n     *Removing a player:* `@elo-bot remove <username>`\n     *Inserting game results:* `@elo-bot <game> <username1> <username2> ...` (in descending order of winner)\n     *Check stats:* `@elo-bot stats <game> <username>`\n     *List of supported games:* `@elo-bot games?`'
     );
 }
 
 function supportedGames() {
     bot.postMessageToChannel(
-        'hungee',
+        'demo',
         '*Supported Games*\n     *1v1:* chess, checkers, foosball, pingpong, fifa \n     *free for all:* uno, coup'
     );
 }
@@ -70,7 +64,7 @@ function supportedGames() {
 function addPlayer (dict, key) {
     if (key in dict) {
         bot.postMessageToChannel(
-            'hungee',
+            'demo',
             `ERROR! Player ${key} already exists.`
         );
         return;
@@ -78,7 +72,7 @@ function addPlayer (dict, key) {
     var temp = new Player(key);
     dict[key] = temp;
     bot.postMessageToChannel(
-        'hungee',
+        'demo',
         `Player ${key} was added!`
     );
     return;
@@ -92,13 +86,13 @@ function removePlayer (dict, name) {
     if (name in dict) {
         delete dict[name];
         bot.postMessageToChannel(
-            'hungee',
+            'demo',
             `Player ${name} was removed!`
         );
         return;
     }
     bot.postMessageToChannel(
-        'hungee',
+        'demo',
         `ERROR! Player ${name} does not exist.`
     );
 }
@@ -108,7 +102,7 @@ function addGameToPlayer(dict, gameName, PlayerName) { // @elo-bot add game ches
         for (var i = 0; i < getPlayer(dict, PlayerName).gameList.length; i++) {
             if (getPlayer(dict, PlayerName).gameList[i].name == gameName) {
                 bot.postMessageToChannel(
-                    'hungee',
+                    'demo',
                     `ERROR! Player ${PlayerName} already has ${gameName}.`
                 );
                 return; 
@@ -116,13 +110,13 @@ function addGameToPlayer(dict, gameName, PlayerName) { // @elo-bot add game ches
         }
         getPlayer(dict, PlayerName).addGame(gameName);
         bot.postMessageToChannel(
-            'hungee',
+            'demo',
             `${gameName} was added to Player ${PlayerName}!`
         );
         return;
     }
     bot.postMessageToChannel(
-        'hungee',
+        'demo',
         `ERROR! Player ${PlayerName} does not exist, cannot add ${gameName}.`
     );
     return;
@@ -133,20 +127,20 @@ function getStats(dict, gameName, playerName) {
         for (var i = 0; i < getPlayer(dict, playerName).gameList.length; i++) {
             if (getPlayer(dict, playerName).gameList[i].name == gameName) {
                 bot.postMessageToChannel(
-                    'hungee',
+                    'demo',
                     `*Player ${playerName}'s stats for ${gameName}:*\n     *Rating*: ${getPlayer(dict, playerName).gameList[i].rating}\n     *Wins*: ${getPlayer(dict, playerName).gameList[i].win}\n     *Losses*: ${getPlayer(dict, playerName).gameList[i].loss}`
                 );
                 return;
             }
         }
         bot.postMessageToChannel(
-            'hungee',
+            'demo',
             `Player ${playerName} has not played ${gameName}!`
         );
         return;
     }
     bot.postMessageToChannel(
-        'hungee',
+        'demo',
         `Player ${playerName} does not exist!`
     );
     return;
