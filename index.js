@@ -1,4 +1,4 @@
-const { Player, addPlayer, getPlayer, removePlayer, addGameToPlayer, helpCommand } = require('./classes');
+const { Player, addPlayer, getPlayer, removePlayer, addGameToPlayer, helpCommand, supportedGames, getStats } = require('./classes');
 const { chessStyle, unoStyle } = require('./algorithm');
 const slackBot = require('slackbots');
 
@@ -51,7 +51,12 @@ function handleMessage(message) {
             removePlayer(listOfPlayers, tokens[2]);
         } else if (tokens[1].match('help')) {
             helpCommand();
-        } else {
+        } else if (tokens[1].match('games?')) {
+            supportedGames();
+        } else if (tokens[1].match('stats')) {
+            getStats(listOfPlayers, tokens[2], tokens[3]); // @elo-bot stats <game> <username>
+        }
+        else {
             parseGameCommand(tokens.slice(1));
         }
     }

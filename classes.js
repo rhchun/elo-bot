@@ -53,6 +53,20 @@ function helpCommand() {
     );
 }
 
+function helpCommand() {
+    bot.postMessageToChannel(
+        'hungee',
+        '*List of Commands*\n     *Adding a new player:* @elo-bot add player <username>\n     *Adding a new game to player:* @elo-bot add game <game> <username>\n     *Removing a player:* @elo-bot remove <username>\n     *Inserting game results:* @elo-bot <game> <username1> <username2> ... (in descending order of winner)\n     *Check stats:* @elo-bot stats <game> <username>\n     *List of supported games:* @elo-bot games?'
+    );
+}
+
+function supportedGames() {
+    bot.postMessageToChannel(
+        'hungee',
+        '*Supported Games*\n     *1v1:* chess, checkers, foosball, pingpong, fifa \n     *free for all:* uno, coup'
+    );
+}
+
 function addPlayer (dict, key) {
     if (key in dict) {
         bot.postMessageToChannel(
@@ -110,10 +124,34 @@ function addGameToPlayer(dict, gameName, PlayerName) { // @elo-bot add game ches
     bot.postMessageToChannel(
         'hungee',
         `ERROR! Player ${PlayerName} does not exist, cannot add ${gameName}.`
-    )
+    );
     return;
 }
 
+function getStats(dict, gameName, playerName) {
+    if (playerName in dict) {
+        for (var i = 0; i < getPlayer(dict, playerName).gameList.length; i++) {
+            console.log(getPlayer(dict, playerName).gameList[i]);
+            if (getPlayer(dict, playerName).gameList[i] == gameName) {
+                bot.postMessageToChannel(
+                    'hungee',
+                    `*Player ${playerName}'s stats for ${gameName}:*\n     *Rating*: ${getPlayer(dict, playerName).gameList[i].rating}\n     *Wins*: ${getPlayer(dict, playerName).gameList[i].win}\n     *Losses*: ${getPlayer(dict, playerName).gameList[i].loss}`
+                );
+                return;
+            }
+        }
+        bot.postMessageToChannel(
+            'hungee',
+            `Player ${playerName} has not played ${gameName}!`
+        );
+        return;
+    }
+    bot.postMessageToChannel(
+        'hungee',
+        `Player ${playerName} does not exist!`
+    );
+    return;
+}
 
 module.exports = {
     Player,
@@ -122,5 +160,7 @@ module.exports = {
     getPlayer,
     removePlayer,
     addGameToPlayer,
-    helpCommand
+    helpCommand,
+    supportedGames,
+    getStats
 }
