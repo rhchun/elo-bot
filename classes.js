@@ -1,16 +1,7 @@
 class Player {
-    constructor(name, totalList) {
-        if (name in totalList) {
-            return;
-        }
-        else {
-            this.name = name;
-            this.gameList = [];
-            totalList.push({
-                key: this.name,
-                value: this
-            });
-        }
+    constructor(name) {
+        this.name = name;
+        this.gameList = [];
     }
     addGame(name) {
         if (name in this.gameList) {
@@ -49,8 +40,18 @@ class Game {
     }
 };
 
+function addPlayer (dict, key, value) {
+    dict[key] = value;
+}
+
+function getPlayer (dict, key) {
+    return dict[key];
+}
+
 
 module.exports = {
     Player,
-    Game
+    Game,
+    addPlayer,
+    getPlayer
 }
